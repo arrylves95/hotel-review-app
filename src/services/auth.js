@@ -11,6 +11,7 @@ export const auth = {
             return [];
         }
     },
+    // AHRA-11: Implemented user registration with localStorage persistence
 
     saveUsers(users) {
         const data = {
