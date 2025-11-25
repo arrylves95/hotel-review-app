@@ -59,6 +59,7 @@ export default function ReviewForm({ onSubmit }) {
                     ))}
                 </select>
             </label>
+            {/* // AHRA-21: Redirect to hotel list after successful hotel creation */}
 
             <label>
                 Review
