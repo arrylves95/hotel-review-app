@@ -18,6 +18,8 @@ export default function Login() {
         <div className="card">
             <h2>Login</h2>
             <form className="form" onSubmit={handleLogin}>
+                {/* AHRA-13: Login form UI + error handling implemented */}
+
                 <label>Username <input value={username} onChange={e => setU(e.target.value)} /></label>
                 <label>Password <input type="password" value={password} onChange={e => setP(e.target.value)} /></label>
                 <div className="actions"><button type="submit">Login</button></div>
