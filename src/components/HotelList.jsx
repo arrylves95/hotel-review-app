@@ -18,6 +18,7 @@ export default function HotelList({ hotels }) {
             list = list.slice().sort((a, b) => a.name.localeCompare(b.name));
         return list;
     }, [hotels, q, sort]);
+    /* AHRA-16: Rendered hotel list with name, location, description */
 
     return (
         <div>
