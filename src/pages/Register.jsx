@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../services/auth";
 import { useNavigate, Link } from "react-router-dom";
+{/* AHRA-10: Registration form UI implemented */ }
 
 export default function Register() {
     const [username, setU] = useState("");
