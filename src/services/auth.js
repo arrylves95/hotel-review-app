@@ -67,6 +67,7 @@ export const auth = {
 
     logout() {
         const users = this.getUsers();
+        // AHRA-15: Implemented logout by clearing currentUser from localStorage
         localStorage.setItem(AUTH_KEY, JSON.stringify({
             users,
             currentUser: null
