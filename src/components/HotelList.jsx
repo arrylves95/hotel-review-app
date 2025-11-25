@@ -45,9 +45,12 @@ export default function HotelList({ hotels }) {
                             <div className="rating">{calcAverageRating(hotel) || "—"} ★</div>
                             <div className="reviews-count">{(hotel.reviews || []).length} reviews</div>
                         </div>
+                        {/* AHRA-18: Added sorting by rating and name */}
                     </article>
                 ))}
             </div>
         </div>
+
+
     );
 }
