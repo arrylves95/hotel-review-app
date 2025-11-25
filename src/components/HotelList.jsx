@@ -27,6 +27,7 @@ export default function HotelList({ hotels }) {
                 <select value={sort} onChange={(e) => setSort(e.target.value)}>
                     <option value="rating">Top rated</option>
                     <option value="name">Name</option>
+
                 </select>
             </div>
 
@@ -40,6 +41,8 @@ export default function HotelList({ hotels }) {
                             <p>{hotel.description?.slice(0, 120)}</p>
                         </div>
                         {/* AHRA-17: Added search box + filtering by name and location */}
+                        {/* AHRA-20: Saving new hotel data into localStorage*/}
+
 
                         <div className="hotel-card-meta">
                             <div className="rating">{calcAverageRating(hotel) || "—"} ★</div>
