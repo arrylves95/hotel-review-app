@@ -1,76 +1,43 @@
-export const AUTH_KEY = "hotel_app_auth_v1";
+const USERS_KEY = "users_db";
+const SESSION_KEY = "currentUser";
 
 export const auth = {
     getUsers() {
-        try {
-            const raw = localStorage.getItem(AUTH_KEY);
-            const parsed = raw ? JSON.parse(raw) : null;
-            return parsed?.users || [];
-        } catch (e) {
-            console.error("auth.getUsers error", e);
-            return [];
-        }
+        return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
     },
-    // AHRA-11: Implemented user registration with localStorage persistence
 
     saveUsers(users) {
-        const data = {
-            users,
-            currentUser: this.getCurrentUser()
-        };
-        localStorage.setItem(AUTH_KEY, JSON.stringify(data));
-    },
-
-    getCurrentUser() {
-        try {
-            const raw = localStorage.getItem(AUTH_KEY);
-            const parsed = raw ? JSON.parse(raw) : null;
-            return parsed?.currentUser || null;
-        } catch {
-            return null;
-        }
-    },
-
-    login(username, password) {
-        const users = this.getUsers();
-        const hash = btoa(password); // simple local hashing (not secure for production)
-        const user = users.find(u => u.username === username && u.passwordHash === hash);
-        if (!user) return null;
-        // AHRA-14: Implemented auth.login() with session tracking in localStorage
-
-
-        localStorage.setItem(AUTH_KEY, JSON.stringify({
-            users,
-            currentUser: user
-        }));
-
-        return user;
+        localStorage.setItem(USERS_KEY, JSON.stringify(users));
     },
 
     register(username, password) {
         const users = this.getUsers();
-        if (users.find(u => u.username === username)) {
+
+        if (users.find((u) => u.username === username)) {
             return { error: "Username already exists" };
         }
 
-        const newUser = {
-            id: "u_" + Date.now(),
-            username,
-            passwordHash: btoa(password)
-        };
-
-        users.push(newUser);
+        users.push({ username, password });
         this.saveUsers(users);
 
-        return newUser;
+        return { success: true };
+    },
+
+    login(username, password) {
+        const users = this.getUsers();
+        const user = users.find((u) => u.username === username && u.password === password);
+
+        if (!user) return null;
+
+        localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+        return user;
     },
 
     logout() {
-        const users = this.getUsers();
-        // AHRA-15: Implemented logout by clearing currentUser from localStorage
-        localStorage.setItem(AUTH_KEY, JSON.stringify({
-            users,
-            currentUser: null
-        }));
+        localStorage.removeItem(SESSION_KEY);
+    },
+
+    getCurrentUser() {
+        return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
     }
 };

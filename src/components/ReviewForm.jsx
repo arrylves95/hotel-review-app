@@ -10,13 +10,7 @@ export default function ReviewForm({ onSubmit }) {
         e.preventDefault();
 
         const user = auth.getCurrentUser();
-        if (!user) {
-            return alert("You must be logged in to post reviews.");
-        }
-
-        if (!text.trim()) {
-            return alert("Review text cannot be empty.");
-        }
+        if (!user) return alert("You must be logged in to review");
 
         const review = {
             id: "r_" + Date.now(),
@@ -26,10 +20,8 @@ export default function ReviewForm({ onSubmit }) {
             createdAt: new Date().toISOString()
         };
 
-        // send review to parent component
         onSubmit(review);
 
-        // clear fields
         setAuthor("");
         setRating(5);
         setText("");
@@ -38,40 +30,23 @@ export default function ReviewForm({ onSubmit }) {
     return (
         <form className="form" onSubmit={submit}>
             <label>
-                Your name (optional):
-                <input
-                    value={author}
-                    onChange={(e) => setAuthor(e.target.value)}
-                    placeholder="Display name"
-                />
+                Your name (optional)
+                <input value={author} onChange={(e) => setAuthor(e.target.value)} />
             </label>
 
             <label>
                 Rating
-                <select
-                    value={rating}
-                    onChange={(e) => setRating(e.target.value)}
-                >
-                    {[5, 4, 3, 2, 1].map((n) => (
-                        <option key={n} value={n}>
-                            {n} ★
-                        </option>
-                    ))}
+                <select value={rating} onChange={(e) => setRating(e.target.value)}>
+                    {[5, 4, 3, 2, 1].map(n => <option key={n} value={n}>{n} ★</option>)}
                 </select>
             </label>
-            {/* // AHRA-21: Redirect to hotel list after successful hotel creation */}
 
             <label>
                 Review
-                <textarea
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                />
+                <textarea value={text} onChange={(e) => setText(e.target.value)} />
             </label>
 
-            <div className="actions">
-                <button type="submit">Post Review</button>
-            </div>
+            <button type="submit">Post Review</button>
         </form>
     );
 }

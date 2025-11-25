@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import HotelList from "./components/HotelList";
 import HotelDetail from "./components/HotelDetail";
-import { storage } from "./services/storage";
+import ReviewForm from "./components/ReviewForm";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { auth } from "./services/auth";   // ✅ FIXED import
+import { storage } from "./services/storage";
+import { auth } from "./services/auth";
 
 export default function App() {
   const [hotels, setHotels] = useState(storage.getHotels());
   const navigate = useNavigate();
 
-  const currentUser = auth.getCurrentUser();  // ✅ FIXED placement
+  const currentUser = auth.getCurrentUser();
 
   useEffect(() => {
     storage.saveHotels(hotels);
@@ -58,7 +59,7 @@ export default function App() {
 
       <main className="main">
         <Routes>
-          <Route path="/" element={<HotelList hotels={hotels} onUpdate={updateHotel} />} />
+          <Route path="/" element={<HotelList hotels={hotels} />} />
           <Route path="/hotel/:id" element={<HotelDetail hotels={hotels} onUpdate={updateHotel} onDelete={deleteHotel} />} />
           <Route path="/add" element={<AddHotel onAdd={addHotel} />} />
           <Route path="/login" element={<Login />} />
@@ -82,6 +83,7 @@ function AddHotel({ onAdd }) {
   const submit = (e) => {
     e.preventDefault();
     if (!name.trim()) return alert("Hotel name required");
+
     onAdd({
       id: "h_" + Date.now(),
       name,

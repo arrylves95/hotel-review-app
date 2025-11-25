@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../services/auth";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [username, setU] = useState("");
@@ -10,21 +10,22 @@ export default function Login() {
     function handleLogin(e) {
         e.preventDefault();
         const user = auth.login(username, password);
-        if (!user) return alert("Invalid username or password");
+        if (!user) return alert("Invalid username/password");
         navigate("/");
     }
 
     return (
         <div className="card">
             <h2>Login</h2>
-            <form className="form" onSubmit={handleLogin}>
-                {/* AHRA-13: Login form UI + error handling implemented */}
 
+            <form className="form" onSubmit={handleLogin}>
                 <label>Username <input value={username} onChange={e => setU(e.target.value)} /></label>
                 <label>Password <input type="password" value={password} onChange={e => setP(e.target.value)} /></label>
-                <div className="actions"><button type="submit">Login</button></div>
+
+                <button type="submit">Login</button>
             </form>
-            <p>New user? <Link to="/register">Register</Link></p>
+
+            <p>New user? <Link to="/register">Create account</Link></p>
         </div>
     );
 }
