@@ -81,6 +81,7 @@ export default function HotelDetail({ hotels, onUpdate, onDelete }) {
                 <h3>Add a review</h3>
                 <ReviewForm onSubmit={(r) => addReview(r)} />
             </section>
+            {/* AHRA-19: Created Add Hotel form UI */}
 
             <div style={{ marginTop: 16 }}>
                 <Link to="/">← Back to list</Link>
