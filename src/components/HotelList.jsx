@@ -38,6 +38,8 @@ export default function HotelList({ hotels }) {
                         <div className="hotel-card-body">
                             <h3><Link to={`/hotel/${hotel.id}`}>{hotel.name}</Link></h3>
                             <p className="muted">{hotel.location}</p>
+                            {/* AHRA-22: Added hotel detail page (title, location, description) */}
+
                             <p>{hotel.description?.slice(0, 120)}</p>
                         </div>
                         {/* AHRA-17: Added search box + filtering by name and location */}
