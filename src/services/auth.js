@@ -36,6 +36,8 @@ export const auth = {
         const hash = btoa(password); // simple local hashing (not secure for production)
         const user = users.find(u => u.username === username && u.passwordHash === hash);
         if (!user) return null;
+        // AHRA-14: Implemented auth.login() with session tracking in localStorage
+
 
         localStorage.setItem(AUTH_KEY, JSON.stringify({
             users,
