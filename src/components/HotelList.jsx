@@ -39,6 +39,8 @@ export default function HotelList({ hotels }) {
                             <p className="muted">{hotel.location}</p>
                             <p>{hotel.description?.slice(0, 120)}</p>
                         </div>
+                        {/* AHRA-17: Added search box + filtering by name and location */}
+
                         <div className="hotel-card-meta">
                             <div className="rating">{calcAverageRating(hotel) || "—"} ★</div>
                             <div className="reviews-count">{(hotel.reviews || []).length} reviews</div>
